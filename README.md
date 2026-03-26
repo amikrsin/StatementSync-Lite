@@ -10,6 +10,8 @@ StatementSync Lite is a high-performance Progressive Web App (PWA) that converts
 - **Privacy First:** All processing happens client-side via the Gemini SDK. Your documents never touch our servers.
 - **PWA Ready:** Installable on desktop and mobile for a native experience.
 - **Real-time Progress:** Visual feedback for large document processing.
+  
+<img width="1918" height="911" alt="image" src="https://github.com/user-attachments/assets/c10eb17f-2e35-4a19-a542-5aa2763b8a29" />
 
 ## 🛠️ Tech Stack
 
