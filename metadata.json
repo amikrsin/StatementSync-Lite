@@ -1,0 +1,5 @@
+{
+  "name": "StatementSync Lite",
+  "description": "Convert PDF documents into Excel files with exact data formatting using Gemini 2.5 Flash.",
+  "requestFramePermissions": []
+}
