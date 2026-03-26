@@ -6,8 +6,7 @@ import {
   Download, 
   CheckCircle2, 
   AlertCircle,
-  ArrowRight,
-  Github
+  ArrowRight
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import * as XLSX from 'xlsx';
@@ -136,15 +135,6 @@ export default function App() {
               >
                 <SettingsIcon className="w-5 h-5" />
               </button>
-              <a 
-                href="https://github.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
-              >
-                <Github className="w-4 h-4" />
-                GitHub
-              </a>
             </div>
           </div>
         </div>
@@ -165,8 +155,7 @@ export default function App() {
             transition={{ delay: 0.1 }}
             className="text-lg text-slate-500 max-w-2xl mx-auto"
           >
-            Extract complex tables from bank statements, invoices, and reports using Gemini 2.5 Flash. 
-            Private, fast, and accurate.
+            High-precision PDF to Excel converter for financial statements. Extract complex tables from bank statements, invoices, and ledgers with 100% accuracy using Gemini 3 Flash.
           </motion.p>
         </div>
 
@@ -253,9 +242,19 @@ export default function App() {
                     <p className="text-red-700 text-sm leading-relaxed">
                       {errorMessage}
                     </p>
+                    {errorMessage?.includes('API key') && (
+                      <div className="mt-4 p-4 bg-white/50 rounded-xl border border-red-200">
+                        <p className="text-red-800 font-medium mb-2">Need a Gemini API Key?</p>
+                        <ol className="text-xs text-red-700 list-decimal ml-4 space-y-1">
+                          <li>Go to the <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="underline font-bold">Google AI Studio API Key page</a>.</li>
+                          <li>Click "Create API key" (choose a project if prompted).</li>
+                          <li>Copy the key and paste it into this app's Settings (top right gear icon).</li>
+                        </ol>
+                      </div>
+                    )}
                     <button 
                       onClick={() => setState('idle')}
-                      className="text-red-900 font-bold text-sm flex items-center gap-1 hover:underline"
+                      className="text-red-900 font-bold text-sm flex items-center gap-1 mt-2 hover:underline"
                     >
                       Try again <ArrowRight className="w-4 h-4" />
                     </button>
@@ -296,7 +295,7 @@ export default function App() {
 
       <footer className="max-w-7xl mx-auto px-4 py-12 border-t border-slate-200">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-sm">
-          <p>© 2026 StatementSync Lite. Powered by Gemini 2.5 Flash.</p>
+          <p>© 2026 StatementSync Lite. Powered by Gemini 3 Flash.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-slate-600 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-slate-600 transition-colors">Terms of Service</a>

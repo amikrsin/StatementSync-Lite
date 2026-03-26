@@ -13,9 +13,9 @@ export default defineConfig(({mode}) => {
       VitePWA({
         registerType: 'autoUpdate',
         manifest: {
-          name: 'StatementSync Lite',
+          name: 'StatementSync Lite | Precision PDF to Excel',
           short_name: 'StatementSync',
-          description: 'PDF to Excel Converter',
+          description: 'High-precision PDF to Excel converter for financial statements.',
           theme_color: '#ffffff',
           icons: [
             {

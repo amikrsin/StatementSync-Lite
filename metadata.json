@@ -1,5 +1,5 @@
 {
   "name": "StatementSync Lite",
-  "description": "Convert PDF documents into Excel files with exact data formatting using Gemini 2.5 Flash.",
+  "description": "Precision PDF to Excel converter for financial statements. Convert complex bank statements and ledgers with 100% accuracy using Gemini 3 Flash.",
   "requestFramePermissions": []
 }
