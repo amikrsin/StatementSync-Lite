@@ -14,6 +14,7 @@ import { PDFDocument } from 'pdf-lib';
 import { Settings } from './components/Settings';
 import { FileUploader } from './components/FileUploader';
 import { extractTableData } from './lib/gemini';
+import { parseGeminiError } from './lib/utils';
 
 type AppState = 'idle' | 'processing' | 'success' | 'error';
 
@@ -95,7 +96,7 @@ export default function App() {
     } catch (error: any) {
       console.error(error);
       setState('error');
-      setErrorMessage(error.message || 'An unexpected error occurred during processing.');
+      setErrorMessage(parseGeminiError(error));
     }
   };
 
@@ -231,33 +232,50 @@ export default function App() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-red-50 border border-red-100 rounded-3xl p-8"
+                className="bg-white border border-red-100 rounded-3xl p-8 shadow-sm overflow-hidden relative"
               >
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-red-100 rounded-xl">
-                    <AlertCircle className="w-6 h-6 text-red-600" />
+                <div className="absolute top-0 left-0 w-1 h-full bg-red-500" />
+                <div className="flex items-start gap-6">
+                  <div className="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <AlertCircle className="w-7 h-7 text-red-600" />
                   </div>
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-bold text-red-900">Extraction Failed</h3>
-                    <p className="text-red-700 text-sm leading-relaxed">
-                      {errorMessage}
-                    </p>
-                    {errorMessage?.includes('API key') && (
-                      <div className="mt-4 p-4 bg-white/50 rounded-xl border border-red-200">
-                        <p className="text-red-800 font-medium mb-2">Need a Gemini API Key?</p>
-                        <ol className="text-xs text-red-700 list-decimal ml-4 space-y-1">
-                          <li>Go to the <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="underline font-bold">Google AI Studio API Key page</a>.</li>
+                  <div className="flex-grow space-y-4">
+                    <div className="space-y-1">
+                      <h3 className="text-xl font-bold text-slate-900">Extraction Failed</h3>
+                      <p className="text-slate-600 leading-relaxed">
+                        {errorMessage}
+                      </p>
+                    </div>
+
+                    {errorMessage?.toLowerCase().includes('api key') && (
+                      <div className="p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+                        <p className="text-slate-800 font-bold text-sm flex items-center gap-2">
+                          <span className="w-5 h-5 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-[10px]">?</span>
+                          How to get a Gemini API Key:
+                        </p>
+                        <ol className="text-xs text-slate-500 list-decimal ml-4 space-y-2">
+                          <li>Go to the <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-bold">Google AI Studio API Key page</a>.</li>
                           <li>Click "Create API key" (choose a project if prompted).</li>
                           <li>Copy the key and paste it into this app's Settings (top right gear icon).</li>
                         </ol>
                       </div>
                     )}
-                    <button 
-                      onClick={() => setState('idle')}
-                      className="text-red-900 font-bold text-sm flex items-center gap-1 mt-2 hover:underline"
-                    >
-                      Try again <ArrowRight className="w-4 h-4" />
-                    </button>
+
+                    <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                      <button 
+                        onClick={() => setState('idle')}
+                        className="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-md shadow-slate-200"
+                      >
+                        Try Again
+                      </button>
+                      <button 
+                        onClick={() => setIsSettingsOpen(true)}
+                        className="px-6 py-3 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl font-bold flex items-center justify-center gap-2 transition-all"
+                      >
+                        <SettingsIcon className="w-4 h-4" />
+                        Check Settings
+                      </button>
+                    </div>
                   </div>
                 </div>
               </motion.div>
