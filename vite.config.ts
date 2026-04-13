@@ -4,34 +4,32 @@ import path from 'path';
 import {defineConfig, loadEnv} from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
-    plugins: [
-      react(), 
-      tailwindcss(),
-      VitePWA({
-        registerType: 'autoUpdate',
-        manifest: {
-          name: 'StatementSync Lite | Precision PDF to Excel',
-          short_name: 'StatementSync',
-          description: 'High-precision PDF to Excel converter for financial statements.',
-          theme_color: '#ffffff',
-          icons: [
-            {
-              src: 'https://picsum.photos/seed/statementsync/192/192',
-              sizes: '192x192',
-              type: 'image/png'
-            },
-            {
-              src: 'https://picsum.photos/seed/statementsync/512/512',
-              sizes: '512x512',
-              type: 'image/png'
-            }
-          ]
-        }
-      })
-    ],
+    plugins: [react(), tailwindcss(), VitePWA({
+      registerType: 'autoUpdate',
+      manifest: {
+        name: 'StatementSync Lite | Precision PDF to Excel',
+        short_name: 'StatementSync',
+        description: 'High-precision PDF to Excel converter for financial statements.',
+        theme_color: '#ffffff',
+        icons: [
+          {
+            src: 'https://picsum.photos/seed/statementsync/192/192',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'https://picsum.photos/seed/statementsync/512/512',
+            sizes: '512x512',
+            type: 'image/png'
+          }
+        ]
+      }
+    }), cloudflare()],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
     },
